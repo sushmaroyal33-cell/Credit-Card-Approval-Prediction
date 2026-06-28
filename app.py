@@ -1,16 +1,27 @@
-import streamlit as st
+from flask import Flask, render_template, request
 
-st.set_page_config(page_title="Credit Card Approval Prediction")
+app = Flask(__name__)
 
-st.title("Credit Card Approval Prediction System")
+@app.route("/")
+def home():
+    return render_template("home.html")
 
-age = st.number_input("Age", 18, 100, 25)
-income = st.number_input("Annual Income", 10000, 1000000, 50000)
-credit_score = st.number_input("Credit Score", 300, 900, 700)
-loan_amount = st.number_input("Loan Amount", 1000, 500000, 50000)
+@app.route("/predict", methods=["GET", "POST"])
+def predict():
+    if request.method == "POST":
+        age = int(request.form["Age"])
+        income = int(request.form["Income"])
+        credit_score = int(request.form["CreditScore"])
+        loan_amount = int(request.form["LoanAmount"])
 
-if st.button("Predict"):
-    if credit_score >= 650 and income >= 30000:
-        st.success("✅ Credit Card Approved")
-    else:
-        st.error("❌ Credit Card Rejected")
+        if credit_score >= 650 and income >= 30000:
+            prediction = "✅ Credit Card Approved"
+        else:
+            prediction = "❌ Credit Card Rejected"
+
+        return render_template("result.html", prediction=prediction)
+
+    return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
