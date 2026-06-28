@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 # -------------------------------
 # Read Dataset
@@ -105,7 +107,60 @@ print(confusion_matrix(y_test, y_pred))
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred, zero_division=0))
 
+# -------------------------------
+# Random Forest Model
+# -------------------------------
 
+print("\n==============================")
+print("Random Forest Model")
+print("==============================")
+
+rf_model = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+
+rf_model.fit(X_train, y_train)
+
+print("Training Random Forest Model...")
+
+rf_pred = rf_model.predict(X_test)
+
+print("\nPredictions:")
+print(rf_pred)
+
+print("\nAccuracy:")
+print(accuracy_score(y_test, rf_pred))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, rf_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, rf_pred))
+
+print("\n==============================")
+print("Decision Tree Model")
+print("==============================")
+
+dt_model = DecisionTreeClassifier(random_state=42)
+
+dt_model.fit(X_train, y_train)
+
+print("Training Decision Tree Model...")
+
+dt_pred = dt_model.predict(X_test)
+
+print("\nPredictions:")
+print(dt_pred)
+
+print("\nAccuracy:")
+print(accuracy_score(y_test, dt_pred))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, dt_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, dt_pred))
 # -------------------------------
 # Descriptive Analysis
 # -------------------------------
