@@ -12,6 +12,24 @@ data = pd.read_csv("dataset.csv")
 # Handling Missing Values
 # -------------------------------
 data = data.fillna(0)
+# -------------------------------
+# Data Cleaning and Merging
+# -------------------------------
+
+print("\nData Cleaning and Merging")
+
+
+
+# Convert all numeric columns to numeric datatype
+for col in data.columns:
+    data[col] = pd.to_numeric(data[col], errors="coerce")
+
+# Fill missing values again after conversion
+data = data.fillna(0)
+
+print("Dataset cleaned successfully")
+print("\nCleaned Dataset:")
+print(data)
 
 print("\nMissing Values Count")
 print(data.isnull().sum())
@@ -36,7 +54,9 @@ print(data["ApprovalStatus"].value_counts())
 
 sns.countplot(x="ApprovalStatus", data=data)
 plt.title("Approval Status Count")
-plt.show()
+plt.show(block=False)
+plt.pause(3)
+plt.close()
 
 # -------------------------------
 # Multivariate Analysis
@@ -44,7 +64,9 @@ plt.show()
 plt.figure(figsize=(8,6))
 sns.heatmap(data.corr(numeric_only=True), annot=True, cmap="coolwarm")
 plt.title("Correlation Heatmap")
-plt.show()
+plt.show(block=False)
+plt.pause(3)
+plt.close()
 
 # -------------------------------
 # Prepare Data
