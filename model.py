@@ -10,6 +10,14 @@ print(data["ApprovalStatus"].value_counts())
 
 sns.countplot(x="ApprovalStatus", data=data)
 plt.show()
+# Multivariate Analysis
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8,6))
+sns.heatmap(data.corr(numeric_only=True), annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
 
 data = data.fillna(0)
 
