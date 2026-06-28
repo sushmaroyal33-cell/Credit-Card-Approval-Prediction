@@ -30,3 +30,10 @@ model = LogisticRegression()
 model.fit(X, y)
 
 print("Model trained successfully")
+# Descriptive Analysis
+
+print("Descriptive Statistics")
+print(data.describe())
+
+print("\nDataset Information")
+print(data.info())
