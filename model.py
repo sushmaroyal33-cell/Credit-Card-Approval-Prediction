@@ -75,14 +75,36 @@ X = data.drop("ApprovalStatus", axis=1)
 X = pd.get_dummies(X)
 
 y = data["ApprovalStatus"]
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-# -------------------------------
+# Split Data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
 # Train Model
-# -------------------------------
 model = LogisticRegression(max_iter=1000)
-model.fit(X, y)
+model.fit(X_train, y_train)
+
+# Prediction
+y_pred = model.predict(X_test)
 
 print("\nModel trained successfully")
+print("Reached Logistic Regression Step")
+
+print("\nPredictions:")
+print(y_pred)
+
+print("\nAccuracy:")
+print(accuracy_score(y_test, y_pred))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, zero_division=0))
+
 
 # -------------------------------
 # Descriptive Analysis
